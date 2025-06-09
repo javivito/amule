@@ -1,6 +1,6 @@
 docker run -it -v /tmp:/tmp debian bash -c '
 apt update; \
-apt -y install curl libgtk2.0-dev libcrypto++-dev; \
+apt -y install curl libgtk2.0-dev libcrypto++-dev libupnp3-dev gcc build-essentials; \
 curl -L http://prdownloads.sourceforge.net/wxwindows/wxWidgets-2.8.12.tar.gz | tar xzf -; \
 cd wxWidgets-2.8.12; \
 ./configure CFLAGS=-std=c99 CXXFLAGS=-std=c++98 --prefix=$PWD/wxprefix --enable-unicode --enable-optimise --disable-shared; \
