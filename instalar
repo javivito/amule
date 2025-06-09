@@ -1,0 +1,22 @@
+docker run -it -v /tmp:/tmp debian bash -c '
+apt update; \
+apt -y install curl libgtk2.0-dev libcrypto++-dev; \
+curl -L http://prdownloads.sourceforge.net/wxwindows/wxWidgets-2.8.12.tar.gz | tar xzf -; \
+cd wxWidgets-2.8.12; \
+./configure CFLAGS=-std=c99 CXXFLAGS=-std=c++98 --prefix=$PWD/wxprefix --enable-unicode --enable-optimise --disable-shared; \
+make; \
+make install; \
+curl -L http://repo.or.cz/w/amule.git/snapshot/10b4d56b786a0989e354f9d29610d6f7f4868e28.tar.gz | tar xzf -; \
+cd amule-*; \
+sed -i "/#include <vector>/a#include <exception>" src/libs/common/MuleDebug.cpp; \
+./configure --disable-debug --enable-optimize --disable-static --disable-nls --disable-monolithic --enable-amule-daemon --disable-amulecmd --disable-webserver --disable-amule-gui --disable-cas --disable-wxcas --disable-ed2k --disable-alc --disable-alcc --with-wx-prefix=$PWD/../wxprefix; \
+make; \
+mv src/amuled /tmp'
+
+For arm64
+
+./configure --build=aarch64-unknown-linux-gnu
+
+For x86
+
+./configure --build=x86_64-unknown-linux-gnu
